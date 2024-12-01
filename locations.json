@@ -1,0 +1,34 @@
+{
+  "countries": [
+    {
+      "name": "USA",
+      "states": [
+        {
+          "name": "California",
+          "cities": ["Los Angeles", "San Francisco", "San Diego"]
+        },
+        {
+          "name": "Texas",
+          "cities": ["Houston", "Austin", "Dallas"]
+        }
+      ]
+    },
+    {
+      "name": "India",
+      "states": [
+      	{
+          "name": "Gujarat",
+          "cities": ["Ahmedabad", "Rajkot", "Vadodara", "Surat"]
+        },
+        {
+          "name": "Maharashtra",
+          "cities": ["Mumbai", "Pune", "Nagpur"]
+        },
+        {
+          "name": "Karnataka",
+          "cities": ["Bangalore", "Mysore", "Hubli"]
+        }
+      ]
+    }
+  ]
+}
