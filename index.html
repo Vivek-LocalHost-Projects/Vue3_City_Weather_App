@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3 Cities Dropdown with Weather</title>
+    <script src="https://unpkg.com/vue@3" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="CitiesDropdown0.js" type="module" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module">
+        import CitiesDropdown from './CitiesDropdown.js';
+
+        const getLocationsPath = () => {
+            const currentPath = window.location.pathname;
+            const directory = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+            return `${window.location.origin}${directory}locations.json`;
+        };
+
+        const fetchLocations = async () => {
+            const locationsPath = getLocationsPath();
+            try {
+                const response = await fetch(locationsPath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // return await response.json();
+                const data = await response.json();
+                return data.countries;
+            } catch (error) {
+                console.error('Error fetching locations.json:', error);
+                return [];
+            }
+        };
+
+        (async () => {
+            const locations = await fetchLocations();
+            if (locations.length) {
+                const app = Vue.createApp({
+                    components: { CitiesDropdown },
+                    template: `<CitiesDropdown :locations="locations" />`,
+                    data() {
+                        return { locations };
+                    },
+                });
+                app.mount('#app');
+            } else {
+                document.getElementById('app').innerHTML = '<p>Error loading locations.</p>';
+            }
+        })();
+    </script>
+</body>
+</html>
